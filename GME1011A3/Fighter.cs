@@ -10,13 +10,6 @@ namespace GME1011A3
     {
         private int strength;
 
-        //zero-argument constructor. : base( ) will call the superclass constructor
-        //to set default values for health and name.
-        public Fighter() : base()
-        {
-            this.strength = 5;
-        }
-
         public Fighter(int health, string name, int strength) : base(health, name)
         {
             if (strength < 0 || strength > 10)  //if the argument came in less than 0 or more than 10

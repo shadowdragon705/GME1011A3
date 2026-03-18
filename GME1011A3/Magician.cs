@@ -10,12 +10,6 @@ namespace GME1011A3
     {
         private int mana;
 
-        //zero-argument constructor. : base( ) will call the superclass constructor
-        //to set default values for health and name.
-        public Magician() : base()
-        {
-            this.mana = 5;
-        }
 
         public Magician(int health, string name, int mana) : base(health, name)
         {

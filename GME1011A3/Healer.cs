@@ -10,12 +10,6 @@ namespace GME1011A3
     {
         private int dexterity;
 
-        //zero-argument constructor. : base( ) will call the superclass constructor
-        //to set default values for health and name.
-        public Healer() : base()
-        {
-            this.dexterity = 5;
-        }
 
         public Healer(int health, string name, int dexterity) : base(health, name) 
         {

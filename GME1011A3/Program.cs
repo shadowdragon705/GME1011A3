@@ -6,15 +6,27 @@ namespace GME1011A3
     {
         static void Main(string[] args)
         {
+            //Player input for Hero Variables plus console color change to yellow temporarily
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("What is your hero's name?: ");
+            string heroName = Console.ReadLine();
+            Console.WriteLine("How much Health does your hero have? (0 - 100): ");
+            string heroHealth = Console.ReadLine();
+            Console.WriteLine("How much strength does your hero posses? (0 - 10): ");
+            string heroStrength = Console.ReadLine();
 
             //Epic battle goes here :)
             Random rng = new Random();
 
-            Fighter hero = new Fighter(100, "Aaron", 5); //TODO: Get these arguments from the user - health, name, strength
+            Fighter hero = new Fighter(int.Parse(heroHealth), heroName, int.Parse(heroStrength));
             Console.WriteLine("Here is our heroic hero: " + hero + "\n\n");
+            //change back to white console
+            Console.ForegroundColor = ConsoleColor.White;
 
-
-            int numBaddies = 5; //TODO: Get number of baddies from the user
+            //Number of enemies input
+            Console.WriteLine("How many foes will you hero face?: ");
+            string numFoes = Console.ReadLine();
+            int numBaddies = int.Parse(numFoes);
             int numAliveBaddies = numBaddies;
 
 

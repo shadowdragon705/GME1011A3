@@ -13,9 +13,9 @@ namespace GME1011A3
         private string name;
 
         //zero-argument constructor
-        public Hero()
+        public Hero(int _health)
         {
-            health = 100;
+            health = _health;
             name = "unnamed hero";
         }
 
@@ -54,7 +54,7 @@ namespace GME1011A3
         //Handy-dandy ToString for debugging
         public override String ToString()
         {
-            return "Hero[" + health + ", " + name + "]";    
+            return "Health: " + health + ", Name: " + name;    
         }
 
     }
