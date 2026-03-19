@@ -75,11 +75,38 @@ namespace GME1011A3
                     indexOfEnemy++;
                 }
 
-                //hero deals damage first
-                Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy+1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
-                int heroDamage = hero.DealDamage();  //how much damage?
-                Console.WriteLine("Hero deals " + heroDamage + " heroic damage."); 
-                baddies[indexOfEnemy].TakeDamage(heroDamage); //baddie takes the damage
+                //Checking if Hero has strength
+                if (hero.GetStrength() > 0)
+                {
+                    //made an entire special atk chance system before realising Beserk() was a thing. Kept it in just to be safe.
+                    int specialATKChance = rng.Next(0, 101);
+                    int heroDamage = hero.DealDamage();
+
+                    if (specialATKChance <= 33)
+                    {
+                        //pretty much regular atk but with Beserk values
+                        hero.Berserk();
+                        Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy + 1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
+                        Console.WriteLine("Hero deals " + hero.Berserk() + " beserk damage.");
+                        baddies[indexOfEnemy].TakeDamage(hero.Berserk());
+                    }
+
+                    else if (specialATKChance > 33)
+                    {
+                        Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy + 1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
+                        Console.WriteLine("Hero deals " + heroDamage + " heroic damage.");
+                        baddies[indexOfEnemy].TakeDamage(heroDamage);
+                    }
+
+                }
+                else if (hero.GetStrength() <= 0)
+                {
+                    //hero deals damage first
+                    Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy + 1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
+                    int heroDamage = hero.DealDamage();  //how much damage?
+                    Console.WriteLine("Hero deals " + heroDamage + " heroic damage.");
+                    baddies[indexOfEnemy].TakeDamage(heroDamage); //baddie takes the damage
+                }
 
 
 
