@@ -37,6 +37,7 @@ namespace GME1011A3
         //is the hero dead?
         public bool isDead() { return _health <= 0; }
 
+
         public override string ToString()
         {
             return "Minion[" + _health + "," + _armour + "]";

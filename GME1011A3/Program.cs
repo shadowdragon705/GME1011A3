@@ -97,6 +97,7 @@ namespace GME1011A3
                         Console.WriteLine("Hero deals " + heroDamage + " heroic damage.");
                         baddies[indexOfEnemy].TakeDamage(heroDamage);
                     }
+                    //sidenote: because of the way beserk is coded, if you give the hero the full strength of 10, they can one-shot skellies and goblins.
 
                 }
                 else if (hero.GetStrength() <= 0)
@@ -107,15 +108,6 @@ namespace GME1011A3
                     Console.WriteLine("Hero deals " + heroDamage + " heroic damage.");
                     baddies[indexOfEnemy].TakeDamage(heroDamage); //baddie takes the damage
                 }
-
-
-
-
-                //TODO: The hero doesn't ever use their special attack - but they should. Change the above to 
-                //have a 33% chance that the hero uses their special, and 67% that they use their regular attack.
-                //If the hero doesn't have enough special power to use their special attack, they do their regular 
-                //attack instead - but make a note of it in the output. There's no way for the hero to get more special
-                //power points, but if you want to craft a way for that to happen, that's fine.
 
 
 
@@ -131,21 +123,45 @@ namespace GME1011A3
                 }
                 else //baddie survived, now attacks the hero
                 {
-                    int baddieDamage = baddies[indexOfEnemy].DealDamage();  //how much damage?
-                    Console.WriteLine("Enemy #" + (indexOfEnemy+1) + " deals " + baddieDamage + " damage!");
-                    hero.TakeDamage(baddieDamage); //hero takes damage
+                    //enemy special ATK logic
+                    int evilSpecialATKChance = rng.Next(0, 101);
+
+                    if (evilSpecialATKChance <= 67)
+                    {
+                        //the basic attack that was here before
+                        int baddieDamage = baddies[indexOfEnemy].DealDamage();  //how much damage?
+                        Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " deals " + baddieDamage + " damage!");
+                        hero.TakeDamage(baddieDamage); //hero takes damage
+                    }
+
+                    else if (evilSpecialATKChance > 67)
+                    {
+                        // a bit of logic to identify which type of enemy is attacking
+                        if (baddies[indexOfEnemy] is Goblin)
+                        {
+
+                            Goblin disOne = (Goblin)baddies[indexOfEnemy];
+                            Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " deals " + disOne.GoblinBite() + " damage!");
+                            hero.TakeDamage(disOne.GoblinBite());
+
+                        }
+                        if (baddies[indexOfEnemy] is Skellie)
+                        {
+
+                            Skellie oderOne = (Skellie)baddies[indexOfEnemy];
+                            Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " deals " + oderOne.SkellieRattle() + " damage!");
+                            hero.TakeDamage(oderOne.SkellieRattle());
+
+                        }
+                        //Note: It prints out the "chomp" or "rattle" text before and after applying damage to the hero. 
+                        //      This doesn't seem to have any effect on the encounter and feels playful so I want to leave it in. 
+                        //      This one isn't lazyness has I do know the solution of removing the writeline from the subclass and putting it in the special atk logic.
+                        //      This is purely an aesthetic choice
+                    }
 
 
-
-
-                    //TODO: The baddie doesn't ever use their special attack - but they should. Change the above to 
-                    //have a 33% chance that the baddie uses their special, and 67% that they use their regular attack.
-                    
-
-
-
-                    //let's look in on our hero.
-                    Console.WriteLine(hero.GetName() + " has " + hero.GetHealth() + " health remaining.");
+                        //let's look in on our hero.
+                        Console.WriteLine(hero.GetName() + " has " + hero.GetHealth() + " health remaining.");
                     if (hero.isDead()) //did the hero die
                     {
                         Console.WriteLine(hero.GetName() + " has died. All hope is lost.");
