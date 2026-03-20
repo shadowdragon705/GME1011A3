@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HeroInheritance;
+using System.Collections.Generic;
 
 namespace GME1011A3
 {
@@ -41,14 +42,19 @@ namespace GME1011A3
                 int enemyChance = rng.Next(0, 101);
 
                 //the if arguments for said spawn selection
-                if (enemyChance < 50)
+                if (enemyChance < 34)
                 {
                     baddies.Add(new Goblin(rng.Next(30, 35), rng.Next(1, 5), rng.Next(1, 10)));
                 }
-                else if (enemyChance >= 50)
+                else if (enemyChance >= 34 && enemyChance < 67)
                 {
                     //Skellies :)
                     baddies.Add(new Skellie(rng.Next(25, 31), 0));
+                }
+                // golem spawn chance
+                else if (enemyChance > 67)
+                {
+                    baddies.Add(new Golem(35, 5, rng.Next(1, 11)));
                 }
 
 
@@ -157,6 +163,15 @@ namespace GME1011A3
                         //      This doesn't seem to have any effect on the encounter and feels playful so I want to leave it in. 
                         //      This one isn't lazyness has I do know the solution of removing the writeline from the subclass and putting it in the special atk logic.
                         //      This is purely an aesthetic choice
+
+                        //golem heal special
+                        if (baddies[indexOfEnemy] is Golem)
+                        {
+
+                            Golem finalOne = (Golem)baddies[indexOfEnemy];
+                            Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " heals " + finalOne.RockMunch() + " health!");
+
+                        }
                     }
 
 
